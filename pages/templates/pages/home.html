@@ -2,7 +2,8 @@
 
 {% block content %}
 {% load static %}
-<link rel="stylesheet" href="{% static 'home.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'pages/css/home.css' %}">
+
 <div class="jumbotron jumbotron-fluid text-center">
     <h1 class="display-4">Welcome to AI Coder</h1>
     <p class="lead">The ultimate AI coding assistant for all your coding needs.</p>
@@ -16,7 +17,7 @@
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">Coding</h4>
-                    <p class="card-text">Get assistance with coding and research papers. Our AI will help you with brainstorming, research, and coding.</p>
+                    <p class="card-text">Get assistance with coding. Our AI will help you with brainstorming and coding.</p>
                     <a href="{% url 'coding' %}" class="btn btn-primary">Learn more</a>
                 </div>
             </div>
