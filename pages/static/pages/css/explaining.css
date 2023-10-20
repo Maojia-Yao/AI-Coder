@@ -1,0 +1,16 @@
+.question-textarea {
+    min-height: 200px;
+    height: auto;
+    overflow: auto;
+}
+
+.loading-message-class {
+    display: none;
+}
+
+.answer-textarea {
+    width: 100%;
+    min-height: 300px;
+    height: auto;
+    overflow: auto;
+}

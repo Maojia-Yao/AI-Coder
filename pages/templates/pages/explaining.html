@@ -1,0 +1,41 @@
+{% extends 'pages/base.html' %}
+
+{% block content %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'pages/css/explaining.css' %}">
+
+<div class="container">
+    <form onsubmit = "submitForm()" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="language">Language</label>
+            <select class="form-control" id="language" name="language">
+                <option value="Python">Python</option>
+                <option value="Java">Java</option>
+                <option value="JavaScript">JavaScript</option>
+                <option value="C++">C++</option>
+                <option value="C">C</option>
+                <option value="C#">C#</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="question">Which code snippet makes you confused? </label>
+            <textarea class="form-control question-textarea" id="question" name="question"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    
+    <div id="loading-message" class="loading-message-class">Explaining...</div>
+    
+    {% if answer %}
+    <div class="form-group">
+        <label for="answer">Successfully Explained</label>
+        <textarea class="form-control answer-textarea" id="answer" name="answer" readonly>{{ answer }}</textarea>
+    </div>
+    {% endif %}
+    
+</div>
+
+<script src="pages/js/explaining.js"></script>
+
+{% endblock %}

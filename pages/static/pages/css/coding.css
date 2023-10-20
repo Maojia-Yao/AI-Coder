@@ -1,0 +1,10 @@
+.loading-message-class {
+    display: none;
+}
+
+.answer-textarea {
+    width: 100%;
+    min-height: 500px;
+    height: auto;
+    overflow: auto;
+}
