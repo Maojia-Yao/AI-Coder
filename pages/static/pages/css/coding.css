@@ -8,3 +8,17 @@
     height: auto;
     overflow: auto;
 }
+
+.notification-class {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #4CAF50;
+    color: white;
+    padding: 15px;
+    border-radius: 4px;
+    z-index: 1000;
+    text-align: center;
+}
