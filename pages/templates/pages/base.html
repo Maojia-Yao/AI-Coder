@@ -33,6 +33,12 @@
                         <a class="nav-link" href="{% url 'explaining' %}">Explaining</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="{% url 'evaluation' %}">Evaluation</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'profile' %}">Profile</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="{% url 'about' %}">About</a>
                     </li>
                 </ul>
@@ -45,6 +51,11 @@
                 <div class="row">
                     <div class="col-md-6">
                         <p>Copyright &copy; 2023 AI-Coder.co</p>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="d-flex justify-content-end">
+                            <a class="nav-link logout-link" href="{% url 'logout' %}">Logout</a>
+                        </div>
                     </div>
                 </div>
             </footer>

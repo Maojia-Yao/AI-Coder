@@ -1,3 +1,6 @@
 from django.db import models
 
-# Create your models here.
+class RequestAndAnswer(models.Model):
+    request = models.TextField()
+    answer = models.TextField()
+    username = models.TextField(default="test")

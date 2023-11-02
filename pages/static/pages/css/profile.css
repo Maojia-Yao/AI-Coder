@@ -1,0 +1,19 @@
+table.table {
+    border-collapse: collapse;
+}
+
+table.table thead th {
+    background-color: #f7f7f7;
+    border: 1px solid #e1e1e1;
+}
+
+table.table tbody td {
+    border: 1px solid #e1e1e1;
+}
+
+.card-header.text-center {
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+}

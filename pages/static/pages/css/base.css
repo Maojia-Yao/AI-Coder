@@ -5,3 +5,12 @@ footer {
     right: 0;
     width: 100%;
   }
+
+.nav-link.logout-link {
+    color: white;
+    font-size: 18px;
+}
+
+body {
+  padding-bottom: 60px;
+}
