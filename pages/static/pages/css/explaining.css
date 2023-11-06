@@ -14,3 +14,42 @@
     height: auto;
     overflow: auto;
 }
+
+.notes-sidebar {
+    position: fixed;
+    right: 10px;
+    top: 100px;
+    width: 200px;
+    background-color: #fff8dc;
+    padding: 20px;
+    border-left: 4px solid #ffa07a;
+    border-radius: 0 8px 8px 0;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    transition: all 0.2s ease-in-out;
+}
+
+.notes-sidebar h2 {
+    color: #ffa07a;
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+.notes-sidebar p {
+    font-size: 0.9em;
+    line-height: 1.4;
+    color: #333;
+}
+
+.notes-sidebar:hover {
+    transform: scale(1.03);
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+@media screen and (max-width: 768px) {
+    .notes-sidebar {
+        width: 150px;
+        bottom: 10px;
+        top: auto;
+        border-radius: 8px 8px 0 0;
+    }
+}

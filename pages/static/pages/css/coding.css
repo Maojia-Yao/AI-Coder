@@ -25,17 +25,39 @@
 
 .warm-reminder {
     position: fixed;
-    top: 10px;
     right: 10px;
-    width: 700px;
-    border: 1px solid #ccc;
-    padding: 5px;
-    background-color: #f9f9f9;
-    border-radius: 5px;
+    top: 100px;
+    width: 200px;
+    background-color: #fff8dc;
+    padding: 20px;
+    border-left: 4px solid #ffa07a;
+    border-radius: 0 8px 8px 0;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    transition: all 0.2s ease-in-out;
 }
 
-.warm-reminder marquee {
-    font-style: italic;
+.warm-reminder h2 {
+    color: #ffa07a;
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+.warm-reminder p {
     font-size: 0.9em;
-    color: #007BFF;
+    line-height: 1.4;
+    color: #333;
+}
+
+.warm-reminder:hover {
+    transform: scale(1.03);
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+@media screen and (max-width: 768px) {
+    .warm-reminder {
+        width: 150px;
+        bottom: 10px;
+        top: auto;
+        border-radius: 8px 8px 0 0;
+    }
 }

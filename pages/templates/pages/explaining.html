@@ -1,5 +1,7 @@
 {% extends 'pages/base.html' %}
 
+{% block title %}Explaining - AI Coder{% endblock %}
+
 {% block content %}
 {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'pages/css/explaining.css' %}">
@@ -44,6 +46,11 @@
     </div>
     {% endif %}
     
+</div>
+
+<div class="notes-sidebar">
+    <h2>Notes</h2>
+    <p>Use this page to get a detailed explanation of a code snippet. Select the programming language and paste the code below. Our AI will provide a step-by-step explanation to clarify how your code works.</p>
 </div>
 
 <script src="{% static 'pages/js/explaining.js' %}"></script>

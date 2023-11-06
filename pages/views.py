@@ -1,8 +1,6 @@
 from django.shortcuts import render, redirect
 import openai
-from dotenv import load_dotenv
-import os
-import subprocess
+from django.conf import settings
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate
@@ -11,7 +9,6 @@ from django.contrib import messages
 from .models import RequestAndAnswer
 from .forms import CustomUserCreationForm
 
-#python manage.py runserver
 
 def register(request):
     if request.method == 'POST':
@@ -38,6 +35,7 @@ def register(request):
     else:
         form = CustomUserCreationForm()
     return render(request, 'pages/register.html', {'form': form})
+
 
 def login_view(request):
     if request.method == 'POST':
@@ -71,6 +69,7 @@ def login_view(request):
         form = AuthenticationForm()
     return render(request, 'pages/login.html', {'form': form})
 
+
 @login_required
 def profile(request):
     username = request.user.username
@@ -84,8 +83,14 @@ def profile(request):
 
     return render(request, 'pages/profile.html', context)
 
+
 def home(request):
     return render(request, 'pages/home.html')
+
+
+def about(request):
+    return render(request, 'pages/about.html')
+
 
 @login_required
 def coding(request):
@@ -126,23 +131,28 @@ def evaluation(request):
         
     return render(request, 'pages/evaluation.html', {'answer': answer})
 
-def about(request):
-    return render(request, 'pages/about.html')
-
 
 def generate_answer(request, task):
     if check(request.method):
         prompt = request.POST['question']
         language = request.POST['language']
         prompt = get_prompt(task, prompt, language)
-        load_dotenv()
-        openai.api_key = os.environ.get('OPENAI_API_KEY')
-        response = openai.Completion.create(
-            model="text-davinci-003",
-            prompt=prompt,
-            max_tokens=1024,
-        )
-        answer = response['choices'][0]['text']
+
+        # Use the API key from Django settings
+        openai.api_key = settings.OPENAI_API_KEY
+        try:
+            response = openai.Completion.create(
+                model="text-davinci-003",
+                prompt=prompt,
+                max_tokens=1024,
+            )
+            answer = response['choices'][0]['text']
+        except openai.error.OpenAIError as e:
+            # Handle OpenAI errors
+            answer = f"An error occurred: {str(e)}"
+        except Exception as e:
+            # Handle other errors
+            answer = f"An unexpected error occurred: {str(e)}"
     else:
         answer = None
     return answer
@@ -154,10 +164,11 @@ def check(method):
 
 def get_prompt(task, prompt, language):
     if task == 'coding':
-        return "Strictly use the code format, help me to write a " + language + " code according to this demand: \n" + prompt + "[END]"
+        return f"Write a {language} code for the following requirement: \n{prompt}\n[END]"
     elif task == 'explaining':
-        return "Explain this " + language + " code with as many details as possible: \n" + prompt + "[END]"
+        return f"Provide a detailed explanation for this {language} code: \n{prompt}\n[END]"
     elif task == 'evaluation':
-        return "Assess this " + language + " code with as many details as possible: \n" + prompt + "[END]"
+        return f"Review and assess this {language} code: \n{prompt}\n[END]"
+
     else:
         return prompt
