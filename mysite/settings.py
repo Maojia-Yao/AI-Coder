@@ -36,6 +36,8 @@ DEBUG = True
 ALLOWED_HOSTS = [
     "ec2-3-27-60-87.ap-southeast-2.compute.amazonaws.com",
     "server-0-lb-2142346985.ap-southeast-2.elb.amazonaws.com",
+    "aicodermaster.com",
+    "172.31.14.23",
 ]
 
 
@@ -55,7 +57,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+   #'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
