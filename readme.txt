@@ -30,3 +30,5 @@ http://127.0.0.1:8000/
 
 7.
 If you want to view and use the coding, explaining, evaluation and profile pages, you must register and log in.
+
+8.
