@@ -2,16 +2,20 @@
     margin: 0;
     padding: 0;
 }
+
 html {
     height: 100%;
 }
+
 body {
     height: 100%;
 }
+
 .container {
     height: 100%;
     background-image: linear-gradient(to right, #fbc2eb, #a6c1ee);
 }
+
 .login-wrapper {
     background-color: #fff;
     width: 358px;
@@ -23,12 +27,14 @@ body {
     top: 50%;
     transform: translate(-50%, -50%);
 }
+
 .header {
     font-size: 38px;
     font-weight: bold;
     text-align: center;
     line-height: 200px;
 }
+
 .input-item {
     display: block;
     width: 100%;
@@ -39,9 +45,11 @@ body {
     font-size: 15px;
     outline: none;
 }
+
 .input-item::placeholder {
     text-transform: uppercase;
 }
+
 .btn {
     text-align: center;
     padding: 10px;
@@ -50,10 +58,12 @@ body {
     background-image: linear-gradient(to right, #a6c1ee, #fbc2eb);
     color: #fff;
 }
+
 .msg {
     text-align: center;
     padding: 10px 0;
 }
+
 a {
     text-decoration-line: none;
     color: #abc1ee;

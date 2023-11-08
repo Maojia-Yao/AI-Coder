@@ -10,33 +10,41 @@ from .models import RequestAndAnswer
 from .forms import CustomUserCreationForm
 
 
+# Handle the registration of new users
 def register(request):
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
-            return redirect('login')  # Redirect to login page
+            return redirect('login') # Redirect to login page after successful registration
         else:
-            if 'password2' in form.errors:  # Check for password errors
-                password_errors = form.errors['password2']
-                error_msg = None
-                if "The password is too similar to the username." in password_errors:
-                    error_msg = 'The password is too similar to the username.'
-                elif "This password is too short. It must contain at least 8 characters." in password_errors:
-                    error_msg = 'The password is too short. It must contain at least 8 characters.'
-                elif "The two password fields didn’t match." in password_errors:
-                    error_msg = 'The entered passwords are inconsistent, please try again.'
+            # Initialize an empty list to collect error messages
+            error_messages = []
 
-                if error_msg:
-                    messages.error(request, error_msg)
+            # Check for specific password errors and add them to the list
+            password_errors = form.errors.get('password2', [])
+            for error in password_errors:
+                if "The password is too similar to the username." in error:
+                    error_messages.append('The password is too similar to the username.')
+                if "This password is too short. It must contain at least 8 characters." in error:
+                    error_messages.append('The password is too short. It must contain at least 8 characters.')
+                if "The two password fields didn’t match." in error:
+                    error_messages.append('The entered passwords do not match, please try again.')
+
+            # If there are any collected error messages, add them as a single message
+            if error_messages:
+                messages.error(request, " ".join(error_messages))
             else:
-                messages.error(request, 'Registration failed, please check your input and try again.')  # Other error messages
+                # For other errors that may not be related to password2
+                messages.error(request, 'Registration failed, please check your input and try again.')
+
             return render(request, 'pages/register.html', {'form': form})
     else:
         form = CustomUserCreationForm()
     return render(request, 'pages/register.html', {'form': form})
 
 
+# Handle the login functionality
 def login_view(request):
     if request.method == 'POST':
         form = AuthenticationForm(data=request.POST)
@@ -46,7 +54,7 @@ def login_view(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
-                return redirect('home')
+                return redirect('home') # Redirect to home page after successful login
             else:
                 messages.error(request, "Invalid username or password. Please try again.")
                 return render(request, 'pages/login.html', {'form': form})
@@ -70,7 +78,8 @@ def login_view(request):
     return render(request, 'pages/login.html', {'form': form})
 
 
-@login_required
+# Display user profile
+@login_required  # Require user to be logged in to view this page
 def profile(request):
     username = request.user.username
     user = User.objects.get(username=username)
@@ -84,14 +93,17 @@ def profile(request):
     return render(request, 'pages/profile.html', context)
 
 
+# Render the home page
 def home(request):
     return render(request, 'pages/home.html')
 
 
+# Render the about page
 def about(request):
     return render(request, 'pages/about.html')
 
 
+# Handle the coding question-answering functionality
 @login_required
 def coding(request):
     answer = generate_answer(request, 'coding')
@@ -105,6 +117,8 @@ def coding(request):
 
     return render(request, 'pages/coding.html', {'answer': answer})
 
+
+# Similar to the coding view, but for explaining code
 @login_required
 def explaining(request):
     answer = generate_answer(request, 'explaining')
@@ -118,6 +132,8 @@ def explaining(request):
 
     return render(request, 'pages/explaining.html', {'answer': answer})
 
+
+# Similar to the above views but for evaluating code
 @login_required
 def evaluation(request):
     answer = generate_answer(request, 'evaluation')
@@ -132,19 +148,24 @@ def evaluation(request):
     return render(request, 'pages/evaluation.html', {'answer': answer})
 
 
+# Generate an answer to the user's question using OpenAI API
 def generate_answer(request, task):
-    if check(request.method):
+    if check(request.method):  # Check if request method is POST
+        # Retrieve the user's question and the programming language from the POST data
         prompt = request.POST['question']
         language = request.POST['language']
+
+        # Format the prompt based on the type of task
         prompt = get_prompt(task, prompt, language)
 
-        # Use the API key from Django settings
+        # Use the OpenAI API key from Django settings
         openai.api_key = settings.OPENAI_API_KEY
         try:
+            # Make an API call to OpenAI's Completion endpoint with the specified parameters
             response = openai.Completion.create(
-                model="text-davinci-003",
-                prompt=prompt,
-                max_tokens=1024,
+                model="text-davinci-003",  # Specify the model to use
+                prompt=prompt,             # Provide the formatted prompt
+                max_tokens=1024,           # Limit the number of tokens in the response, including words and pieces of words
             )
             answer = response['choices'][0]['text']
         except openai.error.OpenAIError as e:
@@ -158,10 +179,12 @@ def generate_answer(request, task):
     return answer
 
 
+# Helper function to check if the request method is POST
 def check(method):
     return method == 'POST'
 
 
+# Constructs the appropriate prompt for the given task
 def get_prompt(task, prompt, language):
     if task == 'coding':
         return f"Write a {language} code for the following requirement: \n{prompt}\n[END]"
