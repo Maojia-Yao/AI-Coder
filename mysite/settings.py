@@ -38,6 +38,7 @@ ALLOWED_HOSTS = [
     "server-0-lb-2142346985.ap-southeast-2.elb.amazonaws.com",
     "aicodermaster.com",
     "172.31.14.23",
+    "127.0.0.1",
 ]
 
 
