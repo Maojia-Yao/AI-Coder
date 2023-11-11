@@ -191,7 +191,7 @@ def get_prompt(task, prompt, language):
     elif task == 'explaining':
         return f"Provide a detailed explanation for this {language} code: \n{prompt}\n[END]"
     elif task == 'evaluation':
-        return f"Review and assess this {language} code: \n{prompt}\n[END]"
+        return f"Review and assess this {language} code: \n{prompt}\nAlso, provide suggestions for improvement and best practices.[END]"
 
     else:
         return prompt
