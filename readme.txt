@@ -21,14 +21,16 @@ Install all dependencies listed in the requirements.txt file in the virtual envi
 pip install -r requirements.txt
 
 5.
+Run the following command to migrate the database：
+python manage.py migrate
+
+6.
 Run the website:
 python manage.py runserver
 
-6.
+7.
 Open the browser and access the following URL:
 http://127.0.0.1:8000/
 
-7.
-If you want to view and use the coding, explaining, evaluation and profile pages, you must register and log in.
-
 8.
+If you want to view and use the coding, explaining, evaluation and profile pages, you must register and log in.
